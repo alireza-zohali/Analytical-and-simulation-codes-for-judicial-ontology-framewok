@@ -1,7 +1,5 @@
 Conceptual Framework for Judicial Digital Transformation Based on Organizational Ontology
 
-https://zenodo.org/badge/DOI/10.5281/zenodo.20834959.svg
-
 This repository contains the complete research materials for the Conceptual Framework for Judicial Digital Transformation Based on Organizational Ontology. The project integrates governance, judicial processes, digital technologies, and performance evaluation into a unified semantic model using OWL 2 DL, SROIQ(D) description logic, and SWRL semantic rules.
 
 Abstract
