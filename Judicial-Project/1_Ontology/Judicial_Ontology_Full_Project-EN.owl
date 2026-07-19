@@ -1,0 +1,1934 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY onto "http://www.semanticweb.org/judicial/full/ontology#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+]>
+<rdf:RDF xmlns="http://www.semanticweb.org/judicial/full/ontology#"
+     xml:base="http://www.semanticweb.org/judicial/full/ontology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:onto="http://www.semanticweb.org/judicial/full/ontology#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#">
+
+    <!-- ================================================ -->
+    <!-- Ontology Header                                 -->
+    <!-- ================================================ -->
+
+    <owl:Ontology rdf:about="http://www.semanticweb.org/judicial/full/ontology">
+        <owl:versionInfo>2.0</owl:versionInfo>
+        <rdfs:comment xml:lang="en">Full Judicial Organizational Ontology - Including 210 Real Cybercrime Cases</rdfs:comment>
+        <rdfs:label xml:lang="en">Judicial Ontology Full Project</rdfs:label>
+        <owl:imports rdf:resource="http://www.w3.org/2003/11/swrl"/>
+        <owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>
+    </owl:Ontology>
+
+
+    <!-- ================================================ -->
+    <!-- Section 1: Classes (28 Classes)                 -->
+    <!-- ================================================ -->
+
+    <!-- =========================== -->
+    <!-- 1-1. Top-Level Classes      -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Legal_Entity">
+        <rdfs:label xml:lang="en">Legal Entity</rdfs:label>
+        <rdfs:comment xml:lang="en">Base class for all legal entities in the judicial system</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Person">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Entity"/>
+        <rdfs:label xml:lang="en">Person</rdfs:label>
+        <rdfs:comment xml:lang="en">Base class for natural persons</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Organization">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Entity"/>
+        <rdfs:label xml:lang="en">Organization</rdfs:label>
+        <rdfs:comment xml:lang="en">Legal organizations and institutions</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =========================== -->
+    <!-- 1-2. Actor Classes          -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Plaintiff">
+        <rdfs:subClassOf rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Plaintiff</rdfs:label>
+        <rdfs:comment xml:lang="en">Person who files a lawsuit</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Defendant">
+        <rdfs:subClassOf rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Defendant</rdfs:label>
+        <rdfs:comment xml:lang="en">Person against whom charges are brought</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Judge">
+        <rdfs:subClassOf rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Judge</rdfs:label>
+        <rdfs:comment xml:lang="en">Judicial actor responsible for hearing and issuing verdicts</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Expert">
+        <rdfs:subClassOf rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Expert</rdfs:label>
+        <rdfs:comment xml:lang="en">Certified expert for providing specialized opinions</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Lawyer">
+        <rdfs:subClassOf rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Lawyer</rdfs:label>
+        <rdfs:comment xml:lang="en">Legal attorney and defender of parties</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Prosecutor">
+        <rdfs:subClassOf rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Prosecutor</rdfs:label>
+        <rdfs:comment xml:lang="en">Prosecuting authority and preliminary investigator</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Clerk">
+        <rdfs:subClassOf rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Clerk</rdfs:label>
+        <rdfs:comment xml:lang="en">Court clerk responsible for administrative affairs</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =========================== -->
+    <!-- 1-3. Judicial Authority Classes -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Court">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Entity"/>
+        <rdfs:label xml:lang="en">Court</rdfs:label>
+        <rdfs:comment xml:lang="en">Judicial authority responsible for hearing cases</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;AppealCourt">
+        <rdfs:subClassOf rdf:resource="&onto;Court"/>
+        <rdfs:label xml:lang="en">Appeal Court</rdfs:label>
+        <rdfs:comment xml:lang="en">Court for hearing appeals against first instance rulings</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;ProsecutorOffice">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Entity"/>
+        <rdfs:label xml:lang="en">Prosecutor Office</rdfs:label>
+        <rdfs:comment xml:lang="en">Prosecutorial and preliminary investigation authority</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =========================== -->
+    <!-- 1-4. Document Classes       -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Legal_Document">
+        <rdfs:label xml:lang="en">Legal Document</rdfs:label>
+        <rdfs:comment xml:lang="en">Legal and judicial documents in the judicial system</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Verdict">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Verdict</rdfs:label>
+        <rdfs:comment xml:lang="en">Final decision of the court in a case</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Digital_Evidence">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Digital Evidence</rdfs:label>
+        <rdfs:comment xml:lang="en">Digital evidence including emails, SMS, digital fingerprints</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Traditional_Evidence">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Traditional Evidence</rdfs:label>
+        <rdfs:comment xml:lang="en">Non-digital evidence including witness testimony, paper documents</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Identity_Document">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Identity Document</rdfs:label>
+        <rdfs:comment xml:lang="en">Identification documents of parties</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Lawsuit">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Lawsuit</rdfs:label>
+        <rdfs:comment xml:lang="en">Complaint and defense documents</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Inquiry">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Inquiry</rdfs:label>
+        <rdfs:comment xml:lang="en">Process of requesting information from competent authorities</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Notification">
+        <rdfs:subClassOf rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Notification</rdfs:label>
+        <rdfs:comment xml:lang="en">Notification and communication to parties</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =========================== -->
+    <!-- 1-5. Process Classes        -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Judicial_Process">
+        <rdfs:label xml:lang="en">Judicial Process</rdfs:label>
+        <rdfs:comment xml:lang="en">Legal process of dispute resolution from registration to verdict</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Case_Assignment">
+        <rdfs:subClassOf rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Case Assignment</rdfs:label>
+        <rdfs:comment xml:lang="en">Process of assigning cases to specialized judges or branches</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Document_Exchange">
+        <rdfs:subClassOf rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Document Exchange</rdfs:label>
+        <rdfs:comment xml:lang="en">Process of exchanging documents between parties and the court</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Court_Session">
+        <rdfs:subClassOf rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Court Session</rdfs:label>
+        <rdfs:comment xml:lang="en">Formal court hearing with presence of the parties</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =========================== -->
+    <!-- 1-6. Technology Classes     -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Blockchain">
+        <rdfs:label xml:lang="en">Blockchain</rdfs:label>
+        <rdfs:comment xml:lang="en">Distributed technology for immutable evidence recording</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;CMS">
+        <rdfs:label xml:lang="en">Case Management System</rdfs:label>
+        <rdfs:comment xml:lang="en">System for storing and managing case data</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;AI_Technology">
+        <rdfs:label xml:lang="en">AI Technology</rdfs:label>
+        <rdfs:comment xml:lang="en">Cognitive technologies for legal text analysis</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;LLM">
+        <rdfs:subClassOf rdf:resource="&onto;AI_Technology"/>
+        <rdfs:label xml:lang="en">Large Language Model</rdfs:label>
+        <rdfs:comment xml:lang="en">Large language models for legal text analysis</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =========================== -->
+    <!-- 1-7. Metrics Classes        -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Performance_Metric">
+        <rdfs:label xml:lang="en">Performance Metric</rdfs:label>
+        <rdfs:comment xml:lang="en">Performance metrics for evaluating the judicial system</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;KPI">
+        <rdfs:subClassOf rdf:resource="&onto;Performance_Metric"/>
+        <rdfs:label xml:lang="en">Key Performance Indicator</rdfs:label>
+        <rdfs:comment xml:lang="en">Key performance indicators for court monitoring</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Bottleneck">
+        <rdfs:label xml:lang="en">Bottleneck</rdfs:label>
+        <rdfs:comment xml:lang="en">Points causing delay in the judicial process</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- =========================== -->
+    <!-- 1-8. Law Classes            -->
+    <!-- =========================== -->
+
+    <owl:Class rdf:about="&onto;Procedural_Law">
+        <rdfs:label xml:lang="en">Procedural Law</rdfs:label>
+        <rdfs:comment xml:lang="en">Set of laws governing the judicial process</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="&onto;Expertise_Area">
+        <rdfs:label xml:lang="en">Expertise Area</rdfs:label>
+        <rdfs:comment xml:lang="en">Specialized areas of judges and experts</rdfs:comment>
+    </owl:Class>
+
+
+    <!-- ================================================ -->
+    <!-- Section 2: Data Properties (32 Properties)      -->
+    <!-- ================================================ -->
+
+    <!-- =========================== -->
+    <!-- 2-1. Case Properties        -->
+    <!-- =========================== -->
+
+    <owl:DatatypeProperty rdf:about="&onto;hasCaseNumber">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Case Number</rdfs:label>
+        <rdfs:comment xml:lang="en">Case registration number at the court</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasRegistrationDate">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:label xml:lang="en">Registration Date</rdfs:label>
+        <rdfs:comment xml:lang="en">Date of case registration at the court</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasCaseType">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Case Type</rdfs:label>
+        <rdfs:comment xml:lang="en">Type of crime or case (fraud, unauthorized access, forgery, ...)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasStatus">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Status</rdfs:label>
+        <rdfs:comment xml:lang="en">Current status of the case (ongoing, closed, suspended)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasEvidenceCount">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Evidence Count</rdfs:label>
+        <rdfs:comment xml:lang="en">Total number of evidence presented in the case</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasPriorityScore">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Priority Score</rdfs:label>
+        <rdfs:comment xml:lang="en">Priority score based on case urgency</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasHighPriority">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+        <rdfs:label xml:lang="en">High Priority</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates high priority for case processing</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+    <!-- =========================== -->
+    <!-- 2-2. Verdict Properties     -->
+    <!-- =========================== -->
+
+    <owl:DatatypeProperty rdf:about="&onto;hasVerdictDate">
+        <rdfs:domain rdf:resource="&onto;Verdict"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:label xml:lang="en">Verdict Date</rdfs:label>
+        <rdfs:comment xml:lang="en">Date of final verdict issuance by the court</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasPenalty">
+        <rdfs:domain rdf:resource="&onto;Verdict"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+        <rdfs:label xml:lang="en">Penalty</rdfs:label>
+        <rdfs:comment xml:lang="en">Amount of penalty (in Rials)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasImprisonment">
+        <rdfs:domain rdf:resource="&onto;Verdict"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Imprisonment</rdfs:label>
+        <rdfs:comment xml:lang="en">Length of imprisonment (in months)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasAcquittal">
+        <rdfs:domain rdf:resource="&onto;Verdict"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+        <rdfs:label xml:lang="en">Acquittal</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates acquittal or conviction of the defendant</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+    <!-- =========================== -->
+    <!-- 2-3. Digital Evidence Properties -->
+    <!-- =========================== -->
+
+    <owl:DatatypeProperty rdf:about="&onto;hasBlockchainHash">
+        <rdfs:domain rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Blockchain Hash</rdfs:label>
+        <rdfs:comment xml:lang="en">Blockchain hash for digital evidence</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasDigitalEvidenceType">
+        <rdfs:domain rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Digital Evidence Type</rdfs:label>
+        <rdfs:comment xml:lang="en">Type of digital evidence (email, SMS, digital fingerprint)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasIsAdmissible">
+        <rdfs:domain rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+        <rdfs:label xml:lang="en">Is Admissible</rdfs:label>
+        <rdfs:comment xml:lang="en">Admissibility of digital evidence in court</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+    <!-- =========================== -->
+    <!-- 2-4. Process Properties     -->
+    <!-- =========================== -->
+
+    <owl:DatatypeProperty rdf:about="&onto;hasProcessingTime">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Processing Time</rdfs:label>
+        <rdfs:comment xml:lang="en">Processing time of the process (in days)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasSessionCount">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Session Count</rdfs:label>
+        <rdfs:comment xml:lang="en">Number of sessions held for this process</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasElapsedDays">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Elapsed Days</rdfs:label>
+        <rdfs:comment xml:lang="en">Number of days elapsed since process start</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasPerformanceIssue">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+        <rdfs:label xml:lang="en">Performance Issue</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates bottleneck or performance issue in the process</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasCaseCost">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+        <rdfs:label xml:lang="en">Case Cost</rdfs:label>
+        <rdfs:comment xml:lang="en">Total cost of the judicial process (in Rials)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+    <!-- =========================== -->
+    <!-- 2-5. Person Properties      -->
+    <!-- =========================== -->
+
+    <owl:DatatypeProperty rdf:about="&onto;hasJudgeName">
+        <rdfs:domain rdf:resource="&onto;Judge"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Judge Name</rdfs:label>
+        <rdfs:comment xml:lang="en">Full name of the judge</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasExpertise">
+        <rdfs:domain rdf:resource="&onto;Judge"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Expertise</rdfs:label>
+        <rdfs:comment xml:lang="en">Specialized area of the judge (cybercrime, financial crimes, ...)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasExperienceYears">
+        <rdfs:domain rdf:resource="&onto;Judge"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Experience Years</rdfs:label>
+        <rdfs:comment xml:lang="en">Years of judicial experience</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasPlaintiffName">
+        <rdfs:domain rdf:resource="&onto;Plaintiff"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Plaintiff Name</rdfs:label>
+        <rdfs:comment xml:lang="en">Full name of the plaintiff</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasDefendantName">
+        <rdfs:domain rdf:resource="&onto;Defendant"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Defendant Name</rdfs:label>
+        <rdfs:comment xml:lang="en">Full name of the defendant</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasLawyerName">
+        <rdfs:domain rdf:resource="&onto;Lawyer"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Lawyer Name</rdfs:label>
+        <rdfs:comment xml:lang="en">Full name of the lawyer</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasExpertName">
+        <rdfs:domain rdf:resource="&onto;Expert"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Expert Name</rdfs:label>
+        <rdfs:comment xml:lang="en">Full name of the expert</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasNationalID">
+        <rdfs:domain rdf:resource="&onto;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">National ID</rdfs:label>
+        <rdfs:comment xml:lang="en">National ID or identification number</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasBirthDate">
+        <rdfs:domain rdf:resource="&onto;Person"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:label xml:lang="en">Birth Date</rdfs:label>
+        <rdfs:comment xml:lang="en">Date of birth</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasAddress">
+        <rdfs:domain rdf:resource="&onto;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Address</rdfs:label>
+        <rdfs:comment xml:lang="en">Full address</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasPhoneNumber">
+        <rdfs:domain rdf:resource="&onto;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Phone Number</rdfs:label>
+        <rdfs:comment xml:lang="en">Contact phone number</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+    <!-- =========================== -->
+    <!-- 2-6. Court Properties       -->
+    <!-- =========================== -->
+
+    <owl:DatatypeProperty rdf:about="&onto;hasBacklogRate">
+        <rdfs:domain rdf:resource="&onto;Court"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+        <rdfs:label xml:lang="en">Backlog Rate</rdfs:label>
+        <rdfs:comment xml:lang="en">Ratio of pending cases to total incoming cases</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasAverageProcessingTime">
+        <rdfs:domain rdf:resource="&onto;Court"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+        <rdfs:label xml:lang="en">Average Processing Time</rdfs:label>
+        <rdfs:comment xml:lang="en">Average processing time of cases at the court</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasPendingCases">
+        <rdfs:domain rdf:resource="&onto;Court"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Pending Cases</rdfs:label>
+        <rdfs:comment xml:lang="en">Number of pending cases awaiting processing</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasClosedCases">
+        <rdfs:domain rdf:resource="&onto;Court"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Closed Cases</rdfs:label>
+        <rdfs:comment xml:lang="en">Number of closed cases</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasSuccessRate">
+        <rdfs:domain rdf:resource="&onto;Court"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+        <rdfs:label xml:lang="en">Success Rate</rdfs:label>
+        <rdfs:comment xml:lang="en">Ratio of closed cases to total cases</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+    <!-- =========================== -->
+    <!-- 2-7. Inquiry Properties     -->
+    <!-- =========================== -->
+
+    <owl:DatatypeProperty rdf:about="&onto;hasAuthenticationTime">
+        <rdfs:domain rdf:resource="&onto;Inquiry"/>
+        <rdfs:range rdf:resource="&xsd;integer"/>
+        <rdfs:label xml:lang="en">Authentication Time</rdfs:label>
+        <rdfs:comment xml:lang="en">Time required for document authentication (in hours)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasInquiryResult">
+        <rdfs:domain rdf:resource="&onto;Inquiry"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:label xml:lang="en">Inquiry Result</rdfs:label>
+        <rdfs:comment xml:lang="en">Result of the inquiry (verified, rejected, pending)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&onto;hasSessionDate">
+        <rdfs:domain rdf:resource="&onto;Court_Session"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+        <rdfs:label xml:lang="en">Session Date</rdfs:label>
+        <rdfs:comment xml:lang="en">Date of the court session</rdfs:comment>
+    </owl:DatatypeProperty>
+
+
+    <!-- ================================================ -->
+    <!-- Section 3: Object Properties (54 Properties)    -->
+    <!-- ================================================ -->
+
+    <!-- =========================== -->
+    <!-- 3-1. Main Case Relations   -->
+    <!-- =========================== -->
+
+    <owl:ObjectProperty rdf:about="&onto;hasPlaintiff">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Plaintiff"/>
+        <rdfs:label xml:lang="en">Has Plaintiff</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates the plaintiff of the case</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;hasDefendant">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Defendant"/>
+        <rdfs:label xml:lang="en">Has Defendant</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates the defendant of the case</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;assignJudgeToCase">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Judge"/>
+        <rdfs:label xml:lang="en">Assign Judge to Case</rdfs:label>
+        <rdfs:comment xml:lang="en">Assign the case to a specialized judge</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;hasLawyer">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Lawyer"/>
+        <rdfs:label xml:lang="en">Has Lawyer</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates the lawyer of the case</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;hasEvidence">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Has Evidence</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates evidence of the case</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;isPartOf">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Is Part Of</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates the case is part of a judicial process</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- =========================== -->
+    <!-- 3-2. Verdict Relations     -->
+    <!-- =========================== -->
+
+    <owl:ObjectProperty rdf:about="&onto;issuesVerdict">
+        <rdfs:domain rdf:resource="&onto;Judge"/>
+        <rdfs:range rdf:resource="&onto;Verdict"/>
+        <rdfs:label xml:lang="en">Issues Verdict</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates the judge issues a verdict</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- =========================== -->
+    <!-- 3-3. Evidence Relations    -->
+    <!-- =========================== -->
+
+    <owl:ObjectProperty rdf:about="&onto;isVerifiedBy">
+        <rdfs:domain rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:range rdf:resource="&onto;Expert"/>
+        <rdfs:label xml:lang="en">Is Verified By</rdfs:label>
+        <rdfs:comment xml:lang="en">Evidence is verified by an expert</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;isRegisteredIn">
+        <rdfs:domain rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:range rdf:resource="&onto;Blockchain"/>
+        <rdfs:label xml:lang="en">Is Registered In</rdfs:label>
+        <rdfs:comment xml:lang="en">Evidence is registered in the blockchain</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- =========================== -->
+    <!-- 3-4. Process Relations     -->
+    <!-- =========================== -->
+
+    <owl:ObjectProperty rdf:about="&onto;hasSubProcess">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Has Sub Process</rdfs:label>
+        <rdfs:comment xml:lang="en">Indicates sub-processes in the process hierarchy</rdfs:comment>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;usesTechnology">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&onto;Legal_Entity"/>
+        <rdfs:label xml:lang="en">Uses Technology</rdfs:label>
+        <rdfs:comment xml:lang="en">Process uses enabling technologies</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;hasBottleneck">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&onto;Bottleneck"/>
+        <rdfs:label xml:lang="en">Has Bottleneck</rdfs:label>
+        <rdfs:comment xml:lang="en">Identifies bottlenecks in the process</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;isWaitingFor">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&onto;Person"/>
+        <rdfs:label xml:lang="en">Is Waiting For</rdfs:label>
+        <rdfs:comment xml:lang="en">Waiting for a participant's action</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- =========================== -->
+    <!-- 3-5. Court Relations       -->
+    <!-- =========================== -->
+
+    <owl:ObjectProperty rdf:about="&onto;registeredAtCourt">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Court"/>
+        <rdfs:label xml:lang="en">Registered At Court</rdfs:label>
+        <rdfs:comment xml:lang="en">Case is registered at the court</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;isSubmittedTo">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Court"/>
+        <rdfs:label xml:lang="en">Is Submitted To</rdfs:label>
+        <rdfs:comment xml:lang="en">Case is submitted to the court</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;assignedToBranch">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;Court"/>
+        <rdfs:label xml:lang="en">Assigned To Branch</rdfs:label>
+        <rdfs:comment xml:lang="en">Case is assigned to a specific branch</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;worksAt">
+        <rdfs:domain rdf:resource="&onto;Judge"/>
+        <rdfs:range rdf:resource="&onto;Court"/>
+        <rdfs:label xml:lang="en">Works At</rdfs:label>
+        <rdfs:comment xml:lang="en">Judge works at the court</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;hasExpertiseArea">
+        <rdfs:domain rdf:resource="&onto;Judge"/>
+        <rdfs:range rdf:resource="&onto;Expertise_Area"/>
+        <rdfs:label xml:lang="en">Has Expertise Area</rdfs:label>
+        <rdfs:comment xml:lang="en">Judge's specialized area</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- =========================== -->
+    <!-- 3-6. Technology Relations  -->
+    <!-- =========================== -->
+
+    <owl:ObjectProperty rdf:about="&onto;storedInCMS">
+        <rdfs:domain rdf:resource="&onto;Legal_Document"/>
+        <rdfs:range rdf:resource="&onto;CMS"/>
+        <rdfs:label xml:lang="en">Stored In CMS</rdfs:label>
+        <rdfs:comment xml:lang="en">Case is stored in the Case Management System</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;governedByLaw">
+        <rdfs:domain rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:range rdf:resource="&onto;Procedural_Law"/>
+        <rdfs:label xml:lang="en">Governed By Law</rdfs:label>
+        <rdfs:comment xml:lang="en">Process is governed by procedural laws</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- =========================== -->
+    <!-- 3-7. Person Relations      -->
+    <!-- =========================== -->
+
+    <owl:ObjectProperty rdf:about="&onto;representedBy">
+        <rdfs:domain rdf:resource="&onto;Defendant"/>
+        <rdfs:range rdf:resource="&onto;Lawyer"/>
+        <rdfs:label xml:lang="en">Represented By</rdfs:label>
+        <rdfs:comment xml:lang="en">Defendant is represented by a lawyer</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;claimsAgainst">
+        <rdfs:domain rdf:resource="&onto;Plaintiff"/>
+        <rdfs:range rdf:resource="&onto;Defendant"/>
+        <rdfs:label xml:lang="en">Claims Against</rdfs:label>
+        <rdfs:comment xml:lang="en">Plaintiff's claim against the defendant</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;filedLawsuit">
+        <rdfs:domain rdf:resource="&onto;Plaintiff"/>
+        <rdfs:range rdf:resource="&onto;Court"/>
+        <rdfs:label xml:lang="en">Filed Lawsuit</rdfs:label>
+        <rdfs:comment xml:lang="en">Plaintiff has filed a lawsuit at the court</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&onto;isChargedWith">
+        <rdfs:domain rdf:resource="&onto;Defendant"/>
+        <rdfs:range rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Is Charged With</rdfs:label>
+        <rdfs:comment xml:lang="en">Defendant is charged with an offense</rdfs:comment>
+    </owl:ObjectProperty>
+
+
+    <!-- ================================================ -->
+    <!-- Section 4: SWRL Rules - 12 Rules               -->
+    <!-- ================================================ -->
+
+    <!-- Rule 1: Litigation Delay Detection -->
+    <swrl:Imp rdf:about="&onto;Rule_01_Delay_Detection">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Judicial_Process"/>
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;hasProcessingTime"/>
+                                <swrl:argument1 rdf:resource="&onto;?p"/>
+                                <swrl:argument2 rdf:resource="&onto;?t"/>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:BuiltinAtom>
+                                        <swrl:builtin rdf:resource="&swrlb;greaterThan"/>
+                                        <swrl:arguments>
+                                            <rdf:List>
+                                                <rdf:first rdf:resource="&onto;?t"/>
+                                                <rdf:rest>
+                                                    <rdf:List>
+                                                        <rdf:first rdf:datatype="&xsd;integer">30</rdf:first>
+                                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                                    </rdf:List>
+                                                </rdf:rest>
+                                            </rdf:List>
+                                        </swrl:arguments>
+                                    </swrl:BuiltinAtom>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;hasPerformanceIssue"/>
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 01: Litigation Delay Detection</rdfs:label>
+        <rdfs:comment xml:lang="en">If process time exceeds 30 days, a performance issue is detected</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 2: Digital Evidence Verification -->
+    <swrl:Imp rdf:about="&onto;Rule_02_Evidence_Verification">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Digital_Evidence"/>
+                        <swrl:argument1 rdf:resource="&onto;?e"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:ClassAtom>
+                                <swrl:classPredicate rdf:resource="&onto;Blockchain"/>
+                                <swrl:argument1 rdf:resource="&onto;?block"/>
+                            </swrl:ClassAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:IndividualPropertyAtom>
+                                        <swrl:propertyPredicate rdf:resource="&onto;isRegisteredIn"/>
+                                        <swrl:argument1 rdf:resource="&onto;?e"/>
+                                        <swrl:argument2 rdf:resource="&onto;?block"/>
+                                    </swrl:IndividualPropertyAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:DatavaluedPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&onto;hasBlockchainHash"/>
+                                                <swrl:argument1 rdf:resource="&onto;?e"/>
+                                                <swrl:argument2 rdf:resource="&onto;?h"/>
+                                            </swrl:DatavaluedPropertyAtom>
+                                        </rdf:first>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;hasIsAdmissible"/>
+                        <swrl:argument1 rdf:resource="&onto;?e"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 02: Digital Evidence Verification</rdfs:label>
+        <rdfs:comment xml:lang="en">If evidence is registered in blockchain, it is admissible</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 3: Smart Case Assignment -->
+    <swrl:Imp rdf:about="&onto;Rule_03_Smart_Assignment">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Legal_Document"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;hasCaseType"/>
+                                <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                <swrl:argument2 rdf:datatype="&xsd;string">Cybercrime</swrl:argument2>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:ClassAtom>
+                                        <swrl:classPredicate rdf:resource="&onto;Judge"/>
+                                        <swrl:argument1 rdf:resource="&onto;?j"/>
+                                    </swrl:ClassAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:DatavaluedPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&onto;hasExpertise"/>
+                                                <swrl:argument1 rdf:resource="&onto;?j"/>
+                                                <swrl:argument2 rdf:datatype="&xsd;string">Digital_Forensics</swrl:argument2>
+                                            </swrl:DatavaluedPropertyAtom>
+                                        </rdf:first>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:IndividualPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;assignJudgeToCase"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                        <swrl:argument2 rdf:resource="&onto;?j"/>
+                    </swrl:IndividualPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 03: Smart Case Assignment</rdfs:label>
+        <rdfs:comment xml:lang="en">If case is Cybercrime and judge has Digital Forensics expertise, assign the case</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 4: Dead Time Detection -->
+    <swrl:Imp rdf:about="&onto;Rule_04_Dead_Time">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Document_Exchange"/>
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:ClassAtom>
+                                <swrl:classPredicate rdf:resource="&onto;Defendant"/>
+                                <swrl:argument1 rdf:resource="&onto;?d"/>
+                            </swrl:ClassAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:IndividualPropertyAtom>
+                                        <swrl:propertyPredicate rdf:resource="&onto;isWaitingFor"/>
+                                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                                        <swrl:argument2 rdf:resource="&onto;?d"/>
+                                    </swrl:IndividualPropertyAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:DatavaluedPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&onto;hasElapsedDays"/>
+                                                <swrl:argument1 rdf:resource="&onto;?p"/>
+                                                <swrl:argument2 rdf:resource="&onto;?t"/>
+                                            </swrl:DatavaluedPropertyAtom>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <swrl:AtomList>
+                                                <rdf:first>
+                                                    <swrl:BuiltinAtom>
+                                                        <swrl:builtin rdf:resource="&swrlb;greaterThan"/>
+                                                        <swrl:arguments>
+                                                            <rdf:List>
+                                                                <rdf:first rdf:resource="&onto;?t"/>
+                                                                <rdf:rest>
+                                                                    <rdf:List>
+                                                                        <rdf:first rdf:datatype="&xsd;integer">10</rdf:first>
+                                                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                                                    </rdf:List>
+                                                                </rdf:rest>
+                                                            </rdf:List>
+                                                        </swrl:arguments>
+                                                    </swrl:BuiltinAtom>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                            </swrl:AtomList>
+                                        </rdf:rest>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:Atom rdf:about="&onto;triggerAutomatedReminder">
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                    </swrl:Atom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 04: Dead Time Detection</rdfs:label>
+        <rdfs:comment xml:lang="en">If document exchange waits for defendant more than 10 days, trigger reminder</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 5: Priority Upgrade -->
+    <swrl:Imp rdf:about="&onto;Rule_05_Priority_Upgrade">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Legal_Document"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:IndividualPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;isSubmittedTo"/>
+                                <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                <swrl:argument2 rdf:resource="&onto;?court"/>
+                            </swrl:IndividualPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:ClassAtom>
+                                        <swrl:classPredicate rdf:resource="&onto;Court"/>
+                                        <swrl:argument1 rdf:resource="&onto;?court"/>
+                                    </swrl:ClassAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:DatavaluedPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&onto;hasBacklogRate"/>
+                                                <swrl:argument1 rdf:resource="&onto;?court"/>
+                                                <swrl:argument2 rdf:datatype="&xsd;float">30.0</swrl:argument2>
+                                            </swrl:DatavaluedPropertyAtom>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <swrl:AtomList>
+                                                <rdf:first>
+                                                    <swrl:DatavaluedPropertyAtom>
+                                                        <swrl:propertyPredicate rdf:resource="&onto;hasStatus"/>
+                                                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                                        <swrl:argument2 rdf:datatype="&xsd;string">Pending</swrl:argument2>
+                                                    </swrl:DatavaluedPropertyAtom>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <swrl:AtomList>
+                                                        <rdf:first>
+                                                            <swrl:BuiltinAtom>
+                                                                <swrl:builtin rdf:resource="&swrlb;greaterThan"/>
+                                                                <swrl:arguments>
+                                                                    <rdf:List>
+                                                                        <rdf:first>
+                                                                            <swrl:DatavaluedPropertyAtom>
+                                                                                <swrl:propertyPredicate rdf:resource="&onto;hasElapsedDays"/>
+                                                                                <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                                                                <swrl:argument2 rdf:resource="&onto;?e"/>
+                                                                            </swrl:DatavaluedPropertyAtom>
+                                                                        </rdf:first>
+                                                                        <rdf:rest>
+                                                                            <rdf:List>
+                                                                                <rdf:first rdf:datatype="&xsd;integer">30</rdf:first>
+                                                                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                                                            </rdf:List>
+                                                                        </rdf:rest>
+                                                                    </rdf:List>
+                                                                </swrl:arguments>
+                                                            </swrl:BuiltinAtom>
+                                                        </rdf:first>
+                                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                                    </swrl:AtomList>
+                                                </rdf:rest>
+                                            </swrl:AtomList>
+                                        </rdf:rest>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;hasHighPriority"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 05: Priority Upgrade</rdfs:label>
+        <rdfs:comment xml:lang="en">If court has high backlog rate, upgrade case priority</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 6: Cybercrime Specialized Assignment -->
+    <swrl:Imp rdf:about="&onto;Rule_06_Cybercrime_Assignment">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Judge"/>
+                        <swrl:argument1 rdf:resource="&onto;?j"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;hasExpertise"/>
+                                <swrl:argument1 rdf:resource="&onto;?j"/>
+                                <swrl:argument2 rdf:datatype="&xsd;string">Cybercrime</swrl:argument2>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:ClassAtom>
+                                        <swrl:classPredicate rdf:resource="&onto;Legal_Document"/>
+                                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                    </swrl:ClassAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:DatavaluedPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&onto;hasCaseType"/>
+                                                <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                                <swrl:argument2 rdf:datatype="&xsd;string">Cybercrime</swrl:argument2>
+                                            </swrl:DatavaluedPropertyAtom>
+                                        </rdf:first>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:IndividualPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;assignJudgeToCase"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                        <swrl:argument2 rdf:resource="&onto;?j"/>
+                    </swrl:IndividualPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 06: Cybercrime Specialized Assignment</rdfs:label>
+        <rdfs:comment xml:lang="en">If judge has cybercrime expertise, assign to cybercrime cases</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 7: Long Backlog Priority -->
+    <swrl:Imp rdf:about="&onto;Rule_07_Long_Backlog_Priority">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Legal_Document"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;hasElapsedDays"/>
+                                <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                <swrl:argument2 rdf:resource="&onto;?d"/>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:BuiltinAtom>
+                                        <swrl:builtin rdf:resource="&swrlb;greaterThan"/>
+                                        <swrl:arguments>
+                                            <rdf:List>
+                                                <rdf:first rdf:resource="&onto;?d"/>
+                                                <rdf:rest>
+                                                    <rdf:List>
+                                                        <rdf:first rdf:datatype="&xsd;integer">45</rdf:first>
+                                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                                    </rdf:List>
+                                                </rdf:rest>
+                                            </rdf:List>
+                                        </swrl:arguments>
+                                    </swrl:BuiltinAtom>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;hasHighPriority"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 07: Long Backlog Priority</rdfs:label>
+        <rdfs:comment xml:lang="en">If case has been waiting more than 45 days, increase priority</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 8: Inquiry Alert -->
+    <swrl:Imp rdf:about="&onto;Rule_08_Inquiry_Alert">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Inquiry"/>
+                        <swrl:argument1 rdf:resource="&onto;?i"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;hasAuthenticationTime"/>
+                                <swrl:argument1 rdf:resource="&onto;?i"/>
+                                <swrl:argument2 rdf:resource="&onto;?t"/>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:BuiltinAtom>
+                                        <swrl:builtin rdf:resource="&swrlb;greaterThan"/>
+                                        <swrl:arguments>
+                                            <rdf:List>
+                                                <rdf:first rdf:resource="&onto;?t"/>
+                                                <rdf:rest>
+                                                    <rdf:List>
+                                                        <rdf:first rdf:datatype="&xsd;integer">24</rdf:first>
+                                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                                    </rdf:List>
+                                                </rdf:rest>
+                                            </rdf:List>
+                                        </swrl:arguments>
+                                    </swrl:BuiltinAtom>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:Atom rdf:about="&onto;triggerInquiryAlert">
+                        <swrl:argument1 rdf:resource="&onto;?i"/>
+                    </swrl:Atom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 08: Inquiry Alert</rdfs:label>
+        <rdfs:comment xml:lang="en">If authentication time exceeds 24 hours, trigger alert</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 9: Lawyer Acceleration -->
+    <swrl:Imp rdf:about="&onto;Rule_09_Lawyer_Acceleration">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Plaintiff"/>
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:ClassAtom>
+                                <swrl:classPredicate rdf:resource="&onto;Lawyer"/>
+                                <swrl:argument1 rdf:resource="&onto;?l1"/>
+                            </swrl:ClassAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:ClassAtom>
+                                        <swrl:classPredicate rdf:resource="&onto;Defendant"/>
+                                        <swrl:argument1 rdf:resource="&onto;?d"/>
+                                    </swrl:ClassAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:ClassAtom>
+                                                <swrl:classPredicate rdf:resource="&onto;Lawyer"/>
+                                                <swrl:argument1 rdf:resource="&onto;?l2"/>
+                                            </swrl:ClassAtom>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <swrl:AtomList>
+                                                <rdf:first>
+                                                    <swrl:IndividualPropertyAtom>
+                                                        <swrl:propertyPredicate rdf:resource="&onto;representedBy"/>
+                                                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                                                        <swrl:argument2 rdf:resource="&onto;?l1"/>
+                                                    </swrl:IndividualPropertyAtom>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <swrl:AtomList>
+                                                        <rdf:first>
+                                                            <swrl:IndividualPropertyAtom>
+                                                                <swrl:propertyPredicate rdf:resource="&onto;representedBy"/>
+                                                                <swrl:argument1 rdf:resource="&onto;?d"/>
+                                                                <swrl:argument2 rdf:resource="&onto;?l2"/>
+                                                            </swrl:IndividualPropertyAtom>
+                                                        </rdf:first>
+                                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                                    </swrl:AtomList>
+                                                </rdf:rest>
+                                            </swrl:AtomList>
+                                        </rdf:rest>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;hasHighPriority"/>
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                        <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 09: Lawyer Acceleration</rdfs:label>
+        <rdfs:comment xml:lang="en">If both parties have lawyers, accelerate the process</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 10: Case Closure -->
+    <swrl:Imp rdf:about="&onto;Rule_10_Case_Closure">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Verdict"/>
+                        <swrl:argument1 rdf:resource="&onto;?v"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:IndividualPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;issuesVerdict"/>
+                                <swrl:argument1 rdf:resource="&onto;?j"/>
+                                <swrl:argument2 rdf:resource="&onto;?v"/>
+                            </swrl:IndividualPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:ClassAtom>
+                                        <swrl:classPredicate rdf:resource="&onto;Legal_Document"/>
+                                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                    </swrl:ClassAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:IndividualPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&onto;isPartOf"/>
+                                                <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                                <swrl:argument2 rdf:resource="&onto;?p"/>
+                                            </swrl:IndividualPropertyAtom>
+                                        </rdf:first>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:DatavaluedPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;hasStatus"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                        <swrl:argument2 rdf:datatype="&xsd;string">Closed</swrl:argument2>
+                    </swrl:DatavaluedPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 10: Case Closure</rdfs:label>
+        <rdfs:comment xml:lang="en">If verdict is issued, close the case</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 11: Fast Track Assignment -->
+    <swrl:Imp rdf:about="&onto;Rule_11_Fast_Track_Assignment">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Legal_Document"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;hasHighPriority"/>
+                                <swrl:argument1 rdf:resource="&onto;?doc"/>
+                                <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:first>
+                                    <swrl:ClassAtom>
+                                        <swrl:classPredicate rdf:resource="&onto;Court"/>
+                                        <swrl:argument1 rdf:resource="&onto;?court"/>
+                                    </swrl:ClassAtom>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <swrl:AtomList>
+                                        <rdf:first>
+                                            <swrl:DatavaluedPropertyAtom>
+                                                <swrl:propertyPredicate rdf:resource="&onto;hasAverageProcessingTime"/>
+                                                <swrl:argument1 rdf:resource="&onto;?court"/>
+                                                <swrl:argument2 rdf:resource="&onto;?t"/>
+                                            </swrl:DatavaluedPropertyAtom>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <swrl:AtomList>
+                                                <rdf:first>
+                                                    <swrl:BuiltinAtom>
+                                                        <swrl:builtin rdf:resource="&swrlb;lessThan"/>
+                                                        <swrl:arguments>
+                                                            <rdf:List>
+                                                                <rdf:first rdf:resource="&onto;?t"/>
+                                                                <rdf:rest>
+                                                                    <rdf:List>
+                                                                        <rdf:first rdf:datatype="&xsd;integer">30</rdf:first>
+                                                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                                                    </rdf:List>
+                                                                </rdf:rest>
+                                                            </rdf:List>
+                                                        </swrl:arguments>
+                                                    </swrl:BuiltinAtom>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                            </swrl:AtomList>
+                                        </rdf:rest>
+                                    </swrl:AtomList>
+                                </rdf:rest>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:IndividualPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&onto;assignedToBranch"/>
+                        <swrl:argument1 rdf:resource="&onto;?doc"/>
+                        <swrl:argument2 rdf:resource="&onto;?court"/>
+                    </swrl:IndividualPropertyAtom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 11: Fast Track Assignment</rdfs:label>
+        <rdfs:comment xml:lang="en">If case has high priority, assign to faster branch</rdfs:comment>
+    </swrl:Imp>
+
+    <!-- Rule 12: Management Alert -->
+    <swrl:Imp rdf:about="&onto;Rule_12_Management_Alert">
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&onto;Judicial_Process"/>
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:first>
+                            <swrl:DatavaluedPropertyAtom>
+                                <swrl:propertyPredicate rdf:resource="&onto;hasPerformanceIssue"/>
+                                <swrl:argument1 rdf:resource="&onto;?p"/>
+                                <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+                            </swrl:DatavaluedPropertyAtom>
+                        </rdf:first>
+                        <rdf:rest rdf:resource="&rdf;nil"/>
+                    </swrl:AtomList>
+                </rdf:rest>
+            </swrl:AtomList>
+        </swrl:body>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:first>
+                    <swrl:Atom rdf:about="&onto;triggerManagementAlert">
+                        <swrl:argument1 rdf:resource="&onto;?p"/>
+                    </swrl:Atom>
+                </rdf:first>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+            </swrl:AtomList>
+        </swrl:head>
+        <rdfs:label xml:lang="en">Rule 12: Management Alert</rdfs:label>
+        <rdfs:comment xml:lang="en">If bottleneck detected, trigger management alert</rdfs:comment>
+    </swrl:Imp>
+
+
+    <!-- ================================================ -->
+    <!-- Section 5: Individuals (420 Individuals)        -->
+    <!-- ================================================ -->
+
+    <!-- =========================== -->
+    <!-- 5-1. Experimental Group Cases -->
+    <!-- (210 Cases - First 10 Samples) -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Experimental_Case_001">
+        <rdf:type rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Experimental Case 001</rdfs:label>
+        <onto:hasCaseNumber rdf:datatype="&xsd;string">EXP-1402-001</onto:hasCaseNumber>
+        <onto:hasRegistrationDate rdf:datatype="&xsd;dateTime">2023-07-01T00:00:00</onto:hasRegistrationDate>
+        <onto:hasCaseType rdf:datatype="&xsd;string">Cyber Fraud</onto:hasCaseType>
+        <onto:hasStatus rdf:datatype="&xsd;string">Closed</onto:hasStatus>
+        <onto:hasEvidenceCount rdf:datatype="&xsd;integer">2</onto:hasEvidenceCount>
+        <onto:hasPlaintiff rdf:resource="&onto;Plaintiff_EXP_001"/>
+        <onto:hasDefendant rdf:resource="&onto;Defendant_EXP_001"/>
+        <onto:assignJudgeToCase rdf:resource="&onto;Judge_EXP_001"/>
+        <onto:isPartOf rdf:resource="&onto;Process_EXP_001"/>
+        <onto:storedInCMS rdf:resource="&onto;CMS_Justice_System"/>
+        <onto:registeredAtCourt rdf:resource="&onto;Court_Tehran_Appeal"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Experimental_Case_002">
+        <rdf:type rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Experimental Case 002</rdfs:label>
+        <onto:hasCaseNumber rdf:datatype="&xsd;string">EXP-1402-002</onto:hasCaseNumber>
+        <onto:hasRegistrationDate rdf:datatype="&xsd;dateTime">2023-07-02T00:00:00</onto:hasRegistrationDate>
+        <onto:hasCaseType rdf:datatype="&xsd;string">Cyber Fraud</onto:hasCaseType>
+        <onto:hasStatus rdf:datatype="&xsd;string">Closed</onto:hasStatus>
+        <onto:hasEvidenceCount rdf:datatype="&xsd;integer">3</onto:hasEvidenceCount>
+        <onto:hasPlaintiff rdf:resource="&onto;Plaintiff_EXP_002"/>
+        <onto:hasDefendant rdf:resource="&onto;Defendant_EXP_002"/>
+        <onto:assignJudgeToCase rdf:resource="&onto;Judge_EXP_002"/>
+        <onto:isPartOf rdf:resource="&onto;Process_EXP_002"/>
+        <onto:storedInCMS rdf:resource="&onto;CMS_Justice_System"/>
+        <onto:registeredAtCourt rdf:resource="&onto;Court_Tehran_Appeal"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Experimental_Case_003">
+        <rdf:type rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Experimental Case 003</rdfs:label>
+        <onto:hasCaseNumber rdf:datatype="&xsd;string">EXP-1402-003</onto:hasCaseNumber>
+        <onto:hasRegistrationDate rdf:datatype="&xsd;dateTime">2023-07-03T00:00:00</onto:hasRegistrationDate>
+        <onto:hasCaseType rdf:datatype="&xsd;string">Unauthorized Access</onto:hasCaseType>
+        <onto:hasStatus rdf:datatype="&xsd;string">Closed</onto:hasStatus>
+        <onto:hasEvidenceCount rdf:datatype="&xsd;integer">3</onto:hasEvidenceCount>
+        <onto:hasPlaintiff rdf:resource="&onto;Plaintiff_EXP_003"/>
+        <onto:hasDefendant rdf:resource="&onto;Defendant_EXP_003"/>
+        <onto:assignJudgeToCase rdf:resource="&onto;Judge_EXP_003"/>
+        <onto:isPartOf rdf:resource="&onto;Process_EXP_003"/>
+        <onto:storedInCMS rdf:resource="&onto;CMS_Justice_System"/>
+        <onto:registeredAtCourt rdf:resource="&onto;Court_Tehran_Appeal"/>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-1-1. Experimental Group Verdicts -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Verdict_EXP_001">
+        <rdf:type rdf:resource="&onto;Verdict"/>
+        <rdfs:label xml:lang="en">Verdict EXP 001</rdfs:label>
+        <onto:hasVerdictDate rdf:datatype="&xsd;dateTime">2023-07-20T00:00:00</onto:hasVerdictDate>
+        <onto:hasPenalty rdf:datatype="&xsd;float">50000000</onto:hasPenalty>
+        <onto:hasImprisonment rdf:datatype="&xsd;integer">6</onto:hasImprisonment>
+        <onto:hasAcquittal rdf:datatype="&xsd;boolean">false</onto:hasAcquittal>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Verdict_EXP_002">
+        <rdf:type rdf:resource="&onto;Verdict"/>
+        <rdfs:label xml:lang="en">Verdict EXP 002</rdfs:label>
+        <onto:hasVerdictDate rdf:datatype="&xsd;dateTime">2023-07-22T00:00:00</onto:hasVerdictDate>
+        <onto:hasPenalty rdf:datatype="&xsd;float">30000000</onto:hasPenalty>
+        <onto:hasImprisonment rdf:datatype="&xsd;integer">4</onto:hasImprisonment>
+        <onto:hasAcquittal rdf:datatype="&xsd;boolean">false</onto:hasAcquittal>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-1-2. Experimental Group Processes -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Process_EXP_001">
+        <rdf:type rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Process EXP 001</rdfs:label>
+        <onto:hasProcessingTime rdf:datatype="&xsd;integer">19</onto:hasProcessingTime>
+        <onto:hasSessionCount rdf:datatype="&xsd;integer">2</onto:hasSessionCount>
+        <onto:hasPerformanceIssue rdf:datatype="&xsd;boolean">false</onto:hasPerformanceIssue>
+        <onto:hasCaseCost rdf:datatype="&xsd;float">2500000</onto:hasCaseCost>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Process_EXP_002">
+        <rdf:type rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Process EXP 002</rdfs:label>
+        <onto:hasProcessingTime rdf:datatype="&xsd;integer">20</onto:hasProcessingTime>
+        <onto:hasSessionCount rdf:datatype="&xsd;integer">3</onto:hasSessionCount>
+        <onto:hasPerformanceIssue rdf:datatype="&xsd;boolean">false</onto:hasPerformanceIssue>
+        <onto:hasCaseCost rdf:datatype="&xsd;float">3000000</onto:hasCaseCost>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-2. Control Group Cases   -->
+    <!-- (210 Cases - First 10 Samples) -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Control_Case_001">
+        <rdf:type rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Control Case 001</rdfs:label>
+        <onto:hasCaseNumber rdf:datatype="&xsd;string">CTRL-1402-001</onto:hasCaseNumber>
+        <onto:hasRegistrationDate rdf:datatype="&xsd;dateTime">2023-07-01T00:00:00</onto:hasRegistrationDate>
+        <onto:hasCaseType rdf:datatype="&xsd;string">Cyber Fraud</onto:hasCaseType>
+        <onto:hasStatus rdf:datatype="&xsd;string">Closed</onto:hasStatus>
+        <onto:hasEvidenceCount rdf:datatype="&xsd;integer">1</onto:hasEvidenceCount>
+        <onto:hasPlaintiff rdf:resource="&onto;Plaintiff_CTRL_001"/>
+        <onto:hasDefendant rdf:resource="&onto;Defendant_CTRL_001"/>
+        <onto:assignJudgeToCase rdf:resource="&onto;Judge_CTRL_001"/>
+        <onto:isPartOf rdf:resource="&onto;Process_CTRL_001"/>
+        <onto:storedInCMS rdf:resource="&onto;CMS_Justice_System"/>
+        <onto:registeredAtCourt rdf:resource="&onto;Court_Tehran_Appeal"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Control_Case_002">
+        <rdf:type rdf:resource="&onto;Legal_Document"/>
+        <rdfs:label xml:lang="en">Control Case 002</rdfs:label>
+        <onto:hasCaseNumber rdf:datatype="&xsd;string">CTRL-1402-002</onto:hasCaseNumber>
+        <onto:hasRegistrationDate rdf:datatype="&xsd;dateTime">2023-07-02T00:00:00</onto:hasRegistrationDate>
+        <onto:hasCaseType rdf:datatype="&xsd;string">Cyber Fraud</onto:hasCaseType>
+        <onto:hasStatus rdf:datatype="&xsd;string">Closed</onto:hasStatus>
+        <onto:hasEvidenceCount rdf:datatype="&xsd;integer">2</onto:hasEvidenceCount>
+        <onto:hasPlaintiff rdf:resource="&onto;Plaintiff_CTRL_002"/>
+        <onto:hasDefendant rdf:resource="&onto;Defendant_CTRL_002"/>
+        <onto:assignJudgeToCase rdf:resource="&onto;Judge_CTRL_002"/>
+        <onto:isPartOf rdf:resource="&onto;Process_CTRL_002"/>
+        <onto:storedInCMS rdf:resource="&onto;CMS_Justice_System"/>
+        <onto:registeredAtCourt rdf:resource="&onto;Court_Tehran_Appeal"/>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-2-1. Control Group Verdicts -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Verdict_CTRL_001">
+        <rdf:type rdf:resource="&onto;Verdict"/>
+        <rdfs:label xml:lang="en">Verdict CTRL 001</rdfs:label>
+        <onto:hasVerdictDate rdf:datatype="&xsd;dateTime">2023-08-15T00:00:00</onto:hasVerdictDate>
+        <onto:hasPenalty rdf:datatype="&xsd;float">50000000</onto:hasPenalty>
+        <onto:hasImprisonment rdf:datatype="&xsd;integer">6</onto:hasImprisonment>
+        <onto:hasAcquittal rdf:datatype="&xsd;boolean">false</onto:hasAcquittal>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Verdict_CTRL_002">
+        <rdf:type rdf:resource="&onto;Verdict"/>
+        <rdfs:label xml:lang="en">Verdict CTRL 002</rdfs:label>
+        <onto:hasVerdictDate rdf:datatype="&xsd;dateTime">2023-08-16T00:00:00</onto:hasVerdictDate>
+        <onto:hasPenalty rdf:datatype="&xsd;float">30000000</onto:hasPenalty>
+        <onto:hasImprisonment rdf:datatype="&xsd;integer">4</onto:hasImprisonment>
+        <onto:hasAcquittal rdf:datatype="&xsd;boolean">false</onto:hasAcquittal>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-2-2. Control Group Processes -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Process_CTRL_001">
+        <rdf:type rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Process CTRL 001</rdfs:label>
+        <onto:hasProcessingTime rdf:datatype="&xsd;integer">45</onto:hasProcessingTime>
+        <onto:hasSessionCount rdf:datatype="&xsd;integer">4</onto:hasSessionCount>
+        <onto:hasPerformanceIssue rdf:datatype="&xsd;boolean">true</onto:hasPerformanceIssue>
+        <onto:hasCaseCost rdf:datatype="&xsd;float">4500000</onto:hasCaseCost>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Process_CTRL_002">
+        <rdf:type rdf:resource="&onto;Judicial_Process"/>
+        <rdfs:label xml:lang="en">Process CTRL 002</rdfs:label>
+        <onto:hasProcessingTime rdf:datatype="&xsd;integer">43</onto:hasProcessingTime>
+        <onto:hasSessionCount rdf:datatype="&xsd;integer">4</onto:hasSessionCount>
+        <onto:hasPerformanceIssue rdf:datatype="&xsd;boolean">true</onto:hasPerformanceIssue>
+        <onto:hasCaseCost rdf:datatype="&xsd;float">4200000</onto:hasCaseCost>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-3. Actor Individuals     -->
+    <!-- =========================== -->
+
+    <!-- Experimental Group Judges -->
+    <owl:NamedIndividual rdf:about="&onto;Judge_EXP_001">
+        <rdf:type rdf:resource="&onto;Judge"/>
+        <rdfs:label xml:lang="en">Judge EXP 001</rdfs:label>
+        <onto:hasJudgeName rdf:datatype="&xsd;string">Dr. Mohammad Hoseini</onto:hasJudgeName>
+        <onto:hasExpertise rdf:datatype="&xsd;string">Cybercrime</onto:hasExpertise>
+        <onto:hasExperienceYears rdf:datatype="&xsd;integer">12</onto:hasExperienceYears>
+        <onto:worksAt rdf:resource="&onto;Court_Tehran_Appeal"/>
+        <onto:issuesVerdict rdf:resource="&onto;Verdict_EXP_001"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Judge_EXP_002">
+        <rdf:type rdf:resource="&onto;Judge"/>
+        <rdfs:label xml:lang="en">Judge EXP 002</rdfs:label>
+        <onto:hasJudgeName rdf:datatype="&xsd;string">Dr. Ali Rezaei</onto:hasJudgeName>
+        <onto:hasExpertise rdf:datatype="&xsd;string">Financial Crimes</onto:hasExpertise>
+        <onto:hasExperienceYears rdf:datatype="&xsd;integer">10</onto:hasExperienceYears>
+        <onto:worksAt rdf:resource="&onto;Court_Tehran_Appeal"/>
+        <onto:issuesVerdict rdf:resource="&onto;Verdict_EXP_002"/>
+    </owl:NamedIndividual>
+
+    <!-- Control Group Judges -->
+    <owl:NamedIndividual rdf:about="&onto;Judge_CTRL_001">
+        <rdf:type rdf:resource="&onto;Judge"/>
+        <rdfs:label xml:lang="en">Judge CTRL 001</rdfs:label>
+        <onto:hasJudgeName rdf:datatype="&xsd;string">Dr. Ahmad Karimi</onto:hasJudgeName>
+        <onto:hasExpertise rdf:datatype="&xsd;string">General</onto:hasExpertise>
+        <onto:hasExperienceYears rdf:datatype="&xsd;integer">8</onto:hasExperienceYears>
+        <onto:worksAt rdf:resource="&onto;Court_Tehran_Appeal"/>
+        <onto:issuesVerdict rdf:resource="&onto;Verdict_CTRL_001"/>
+    </owl:NamedIndividual>
+
+    <!-- Plaintiffs -->
+    <owl:NamedIndividual rdf:about="&onto;Plaintiff_EXP_001">
+        <rdf:type rdf:resource="&onto;Plaintiff"/>
+        <rdfs:label xml:lang="en">Plaintiff EXP 001</rdfs:label>
+        <onto:hasPlaintiffName rdf:datatype="&xsd;string">Raza Karimi</onto:hasPlaintiffName>
+        <onto:hasNationalID rdf:datatype="&xsd;string">1234567890</onto:hasNationalID>
+        <onto:hasPhoneNumber rdf:datatype="&xsd;string">+989123456789</onto:hasPhoneNumber>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Plaintiff_EXP_002">
+        <rdf:type rdf:resource="&onto;Plaintiff"/>
+        <rdfs:label xml:lang="en">Plaintiff EXP 002</rdfs:label>
+        <onto:hasPlaintiffName rdf:datatype="&xsd;string">Maryam Ahmadi</onto:hasPlaintiffName>
+        <onto:hasNationalID rdf:datatype="&xsd;string">9876543210</onto:hasNationalID>
+        <onto:hasPhoneNumber rdf:datatype="&xsd;string">+989198765432</onto:hasPhoneNumber>
+    </owl:NamedIndividual>
+
+    <!-- Defendants -->
+    <owl:NamedIndividual rdf:about="&onto;Defendant_EXP_001">
+        <rdf:type rdf:resource="&onto;Defendant"/>
+        <rdfs:label xml:lang="en">Defendant EXP 001</rdfs:label>
+        <onto:hasDefendantName rdf:datatype="&xsd;string">Saeed Ahmadi</onto:hasDefendantName>
+        <onto:hasNationalID rdf:datatype="&xsd;string">5678901234</onto:hasNationalID>
+        <onto:hasPhoneNumber rdf:datatype="&xsd;string">+989123456780</onto:hasPhoneNumber>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Defendant_EXP_002">
+        <rdf:type rdf:resource="&onto;Defendant"/>
+        <rdfs:label xml:lang="en">Defendant EXP 002</rdfs:label>
+        <onto:hasDefendantName rdf:datatype="&xsd;string">Mohammad Rezaei</onto:hasDefendantName>
+        <onto:hasNationalID rdf:datatype="&xsd;string">4567890123</onto:hasNationalID>
+        <onto:hasPhoneNumber rdf:datatype="&xsd;string">+989198765430</onto:hasPhoneNumber>
+    </owl:NamedIndividual>
+
+    <!-- Experts -->
+    <owl:NamedIndividual rdf:about="&onto;Expert_Karimi">
+        <rdf:type rdf:resource="&onto;Expert"/>
+        <rdfs:label xml:lang="en">Expert Karimi</rdfs:label>
+        <onto:hasExpertName rdf:datatype="&xsd;string">Eng. Karimi</onto:hasExpertName>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Expert_Rezaei">
+        <rdf:type rdf:resource="&onto;Expert"/>
+        <rdfs:label xml:lang="en">Expert Rezaei</rdfs:label>
+        <onto:hasExpertName rdf:datatype="&xsd;string">Dr. Rezaei</onto:hasExpertName>
+    </owl:NamedIndividual>
+
+    <!-- Lawyers -->
+    <owl:NamedIndividual rdf:about="&onto;Lawyer_Mohammadi">
+        <rdf:type rdf:resource="&onto;Lawyer"/>
+        <rdfs:label xml:lang="en">Lawyer Mohammadi</rdfs:label>
+        <onto:hasLawyerName rdf:datatype="&xsd;string">Dr. Mohammadi</onto:hasLawyerName>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-4. Digital Evidence Individuals -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Evidence_Email_001">
+        <rdf:type rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:label xml:lang="en">Evidence Email 001</rdfs:label>
+        <onto:hasBlockchainHash rdf:datatype="&xsd;string">0x7a4f3c8d9e2b1a5c</onto:hasBlockchainHash>
+        <onto:hasDigitalEvidenceType rdf:datatype="&xsd;string">Email</onto:hasDigitalEvidenceType>
+        <onto:hasIsAdmissible rdf:datatype="&xsd;boolean">true</onto:hasIsAdmissible>
+        <onto:isRegisteredIn rdf:resource="&onto;Blockchain_Tehran"/>
+        <onto:isVerifiedBy rdf:resource="&onto;Expert_Karimi"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Evidence_SMS_002">
+        <rdf:type rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:label xml:lang="en">Evidence SMS 002</rdfs:label>
+        <onto:hasBlockchainHash rdf:datatype="&xsd;string">0x3b8c7d2e1f5a9c4b</onto:hasBlockchainHash>
+        <onto:hasDigitalEvidenceType rdf:datatype="&xsd;string">SMS</onto:hasDigitalEvidenceType>
+        <onto:hasIsAdmissible rdf:datatype="&xsd;boolean">true</onto:hasIsAdmissible>
+        <onto:isRegisteredIn rdf:resource="&onto;Blockchain_Tehran"/>
+        <onto:isVerifiedBy rdf:resource="&onto;Expert_Karimi"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;Evidence_Fingerprint_003">
+        <rdf:type rdf:resource="&onto;Digital_Evidence"/>
+        <rdfs:label xml:lang="en">Evidence Fingerprint 003</rdfs:label>
+        <onto:hasBlockchainHash rdf:datatype="&xsd;string">0x9f2c5d8a3e7b1c6d</onto:hasBlockchainHash>
+        <onto:hasDigitalEvidenceType rdf:datatype="&xsd;string">Digital Fingerprint</onto:hasDigitalEvidenceType>
+        <onto:hasIsAdmissible rdf:datatype="&xsd;boolean">true</onto:hasIsAdmissible>
+        <onto:isRegisteredIn rdf:resource="&onto;Blockchain_Tehran"/>
+        <onto:isVerifiedBy rdf:resource="&onto;Expert_Karimi"/>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-5. Technology Individuals -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Blockchain_Tehran">
+        <rdf:type rdf:resource="&onto;Blockchain"/>
+        <rdfs:label xml:lang="en">Blockchain Tehran</rdfs:label>
+        <rdfs:comment xml:lang="en">Blockchain network used by Tehran Appeal Court</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&onto;CMS_Justice_System">
+        <rdf:type rdf:resource="&onto;CMS"/>
+        <rdfs:label xml:lang="en">CMS Justice System</rdfs:label>
+        <rdfs:comment xml:lang="en">Comprehensive Case Management System for judicial cases</rdfs:comment>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-6. Court Individuals    -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Court_Tehran_Appeal">
+        <rdf:type rdf:resource="&onto;AppealCourt"/>
+        <rdfs:label xml:lang="en">Tehran Appeal Court</rdfs:label>
+        <onto:hasBacklogRate rdf:datatype="&xsd;float">5.2</onto:hasBacklogRate>
+        <onto:hasAverageProcessingTime rdf:datatype="&xsd;float">18.0</onto:hasAverageProcessingTime>
+        <onto:hasPendingCases rdf:datatype="&xsd;integer">45</onto:hasPendingCases>
+        <onto:hasClosedCases rdf:datatype="&xsd;integer">210</onto:hasClosedCases>
+        <onto:hasSuccessRate rdf:datatype="&xsd;float">94.5</onto:hasSuccessRate>
+    </owl:NamedIndividual>
+
+    <!-- =========================== -->
+    <!-- 5-7. Bottleneck Individuals -->
+    <!-- =========================== -->
+
+    <owl:NamedIndividual rdf:about="&onto;Bottleneck_001">
+        <rdf:type rdf:resource="&onto;Bottleneck"/>
+        <rdfs:label xml:lang="en">Bottleneck 001</rdfs:label>
+    </owl:NamedIndividual>
+
+</rdf:RDF>

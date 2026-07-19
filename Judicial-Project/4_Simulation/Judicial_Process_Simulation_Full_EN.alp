@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation xsi:noNamespaceSchemaLocation="http://www.anylogic.com/schema/AnyLogic.xsd" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <!-- ============================================================ -->
+    <!-- Simulation General Information                                -->
+    <!-- ============================================================ -->
+    
+    <Name>Judicial Process Simulation - 1250 Cases</Name>
+    <Description>Full judicial process simulation with 1250 cases in two scenarios: Traditional and Proposed</Description>
+    
+    <Engine>
+        <RandomNumberGenerator>
+            <Seed>2025</Seed>
+        </RandomNumberGenerator>
+        <TimeUnit>DAY</TimeUnit>
+        <StopTime>365</StopTime>
+        <StartTime>0</StartTime>
+    </Engine>
+
+    <!-- ============================================================ -->
+    <!-- Simulation Parameters                                         -->
+    <!-- ============================================================ -->
+    
+    <Parameter>
+        <Name>ArrivalRate</Name>
+        <Type>double</Type>
+        <DefaultValue>15.0</DefaultValue>
+        <Description>Case arrival rate (Poisson distribution - λ)</Description>
+        <DisplayName>Arrival Rate</DisplayName>
+    </Parameter>
+    
+    <Parameter>
+        <Name>ProcessingTimeMean</Name>
+        <Type>double</Type>
+        <DefaultValue>20.0</DefaultValue>
+        <Description>Mean processing time (Erlang distribution - days)</Description>
+        <DisplayName>Mean Processing Time</DisplayName>
+    </Parameter>
+    
+    <Parameter>
+        <Name>NumReplications</Name>
+        <Type>int</Type>
+        <DefaultValue>30</DefaultValue>
+        <Description>Number of simulation replications</Description>
+        <DisplayName>Replications</DisplayName>
+    </Parameter>
+    
+    <Parameter>
+        <Name>TotalCases</Name>
+        <Type>int</Type>
+        <DefaultValue>1250</DefaultValue>
+        <Description>Total number of cases to simulate</Description>
+        <DisplayName>Total Cases</DisplayName>
+    </Parameter>
+
+    <!-- ============================================================ -->
+    <!-- Data Sets                                                    -->
+    <!-- ============================================================ -->
+    
+    <DataSet>
+        <Name>cycleTimeData</Name>
+        <Description>Cycle time data for all cases</Description>
+        <Columns>
+            <Column>Scenario</Column>
+            <Column>CycleTime</Column>
+            <Column>CaseID</Column>
+            <Column>CaseType</Column>
+        </Columns>
+    </DataSet>
+    
+    <DataSet>
+        <Name>backlogData</Name>
+        <Description>Backlog rate data over time</Description>
+        <Columns>
+            <Column>Scenario</Column>
+            <Column>BacklogRate</Column>
+            <Column>Time</Column>
+        </Columns>
+    </DataSet>
+    
+    <DataSet>
+        <Name>authTimeData</Name>
+        <Description>Authentication time data</Description>
+        <Columns>
+            <Column>Scenario</Column>
+            <Column>AuthTime</Column>
+            <Column>CaseID</Column>
+        </Columns>
+    </DataSet>
+
+    <!-- ============================================================ -->
+    <!-- Key Variables                                                 -->
+    <!-- ============================================================ -->
+    
+    <Variable>
+        <Name>completedCases</Name>
+        <Type>int</Type>
+        <DefaultValue>0</DefaultValue>
+        <Description>Number of completed/closed cases</Description>
+    </Variable>
+    
+    <Variable>
+        <Name>backlogRate</Name>
+        <Type>double</Type>
+        <DefaultValue>0.0</DefaultValue>
+        <Description>Current backlog rate</Description>
+    </Variable>
+    
+    <Variable>
+        <Name>totalCycleTime</Name>
+        <Type>double</Type>
+        <DefaultValue>0.0</DefaultValue>
+        <Description>Total sum of all cycle times</Description>
+    </Variable>
+
+    <!-- ============================================================ -->
+    <!-- Case Agent Class                                              -->
+    <!-- ============================================================ -->
+    
+    <AgentClass>
+        <Name>Case</Name>
+        <Description>Represents a judicial case</Description>
+        <Parameters>
+            <Parameter>
+                <Name>CaseID</Name>
+                <Type>String</Type>
+                <DefaultValue>""</DefaultValue>
+                <Description>Unique case identifier</Description>
+            </Parameter>
+            <Parameter>
+                <Name>ArrivalTime</Name>
+                <Type>double</Type>
+                <DefaultValue>0.0</DefaultValue>
+                <Description>Time when case entered the system</Description>
+            </Parameter>
+            <Parameter>
+                <Name>CaseType</Name>
+                <Type>String</Type>
+                <DefaultValue>"Cyber_Fraud"</DefaultValue>
+                <Description>Type of cybercrime</Description>
+            </Parameter>
+            <Parameter>
+                <Name>HasDigitalEvidence</Name>
+                <Type>boolean</Type>
+                <DefaultValue>true</DefaultValue>
+                <Description>Whether case has digital evidence</Description>
+            </Parameter>
+            <Parameter>
+                <Name>EvidenceCount</Name>
+                <Type>int</Type>
+                <DefaultValue>2</DefaultValue>
+                <Description>Number of digital evidence items</Description>
+            </Parameter>
+            <Parameter>
+                <Name>AssignedJudge</Name>
+                <Type>String</Type>
+                <DefaultValue>""</DefaultValue>
+                <Description>Assigned judge name</Description>
+            </Parameter>
+            <Parameter>
+                <Name>ProcessingTime</Name>
+                <Type>double</Type>
+                <DefaultValue>0.0</DefaultValue>
+                <Description>Total case processing time</Description>
+            </Parameter>
+            <Parameter>
+                <Name>AuthenticationTime</Name>
+                <Type>double</Type>
+                <DefaultValue>0.0</DefaultValue>
+                <Description>Evidence authentication time</Description>
+            </Parameter>
+            <Parameter>
+                <Name>SessionCount</Name>
+                <Type>int</Type>
+                <DefaultValue>2</DefaultValue>
+                <Description>Number of court sessions</Description>
+            </Parameter>
+            <Parameter>
+                <Name>HasPerformanceIssue</Name>
+                <Type>boolean</Type>
+                <DefaultValue>false</DefaultValue>
+                <Description>Whether bottleneck exists</Description>
+            </Parameter>
+            <Parameter>
+                <Name>EvidenceVerified</Name>
+                <Type>boolean</Type>
+                <DefaultValue>false</DefaultValue>
+                <Description>Whether evidence is verified</Description>
+            </Parameter>
+        </Parameters>
+    </AgentClass>
+
+    <!-- ============================================================ -->
+    <!-- Output Charts                                                -->
+    <!-- ============================================================ -->
+    
+    <Plot>
+        <Name>CycleTimeComparison</Name>
+        <Title>Cycle Time Comparison Between Scenarios</Title>
+        <XAxisLabel>Simulation Replication</XAxisLabel>
+        <YAxisLabel>Cycle Time (Days)</YAxisLabel>
+        <Datasets>
+            <Dataset>
+                <Name>Proposed Scenario</Name>
+                <Color>#2E86C1</Color>
+                <XColumn>Replication</XColumn>
+                <YColumn>CycleTime</YColumn>
+            </Dataset>
+            <Dataset>
+                <Name>Traditional Scenario</Name>
+                <Color>#E74C3C</Color>
+                <XColumn>Replication</XColumn>
+                <YColumn>CycleTime</YColumn>
+            </Dataset>
+        </Datasets>
+    </Plot>
+    
+    <Plot>
+        <Name>BacklogComparison</Name>
+        <Title>Backlog Rate Comparison Between Scenarios</Title>
+        <XAxisLabel>Time (Days)</XAxisLabel>
+        <YAxisLabel>Backlog Rate (%)</YAxisLabel>
+        <Datasets>
+            <Dataset>
+                <Name>Proposed Scenario</Name>
+                <Color>#2E86C1</Color>
+                <XColumn>Time</XColumn>
+                <YColumn>BacklogRate</YColumn>
+            </Dataset>
+            <Dataset>
+                <Name>Traditional Scenario</Name>
+                <Color>#E74C3C</Color>
+                <XColumn>Time</XColumn>
+                <YColumn>BacklogRate</YColumn>
+            </Dataset>
+        </Datasets>
+    </Plot>
+    
+    <Plot>
+        <Name>AuthTimeComparison</Name>
+        <Title>Authentication Time Comparison Between Scenarios</Title>
+        <XAxisLabel>Case Number</XAxisLabel>
+        <YAxisLabel>Authentication Time (Hours)</YAxisLabel>
+        <Datasets>
+            <Dataset>
+                <Name>Proposed Scenario</Name>
+                <Color>#2E86C1</Color>
+                <XColumn>CaseNumber</XColumn>
+                <YColumn>AuthTime</YColumn>
+            </Dataset>
+            <Dataset>
+                <Name>Traditional Scenario</Name>
+                <Color>#E74C3C</Color>
+                <XColumn>CaseNumber</XColumn>
+                <YColumn>AuthTime</YColumn>
+            </Dataset>
+        </Datasets>
+    </Plot>
+
+    <!-- ============================================================ -->
+    <!-- Experimental Scenario (Proposed Model)                      -->
+    <!-- ============================================================ -->
+    
+    <Experiment>
+        <Name>ExperimentalScenario</Name>
+        <Type>Simulation</Type>
+        <Description>Proposed scenario with ontology, SWRL, and smart assignment</Description>
+        
+        <!-- 1. Case Generator -->
+        <Source>
+            <Name>CaseGenerator_Exp</Name>
+            <Description>Generates cases for experimental group</Description>
+            <ArrivalRate>
+                <Expression>poisson(ArrivalRate)</Expression>
+            </ArrivalRate>
+            <Action>
+                <Expression>
+                    // Generate new case with complete specifications
+                    Case newCase = new Case();
+                    newCase.CaseID = "EXP-" + time() + "-" + random();
+                    newCase.ArrivalTime = time();
+                    
+                    // Determine case type based on distribution
+                    double typeRand = uniform(0, 1);
+                    if (typeRand < 0.42) {
+                        newCase.CaseType = "Cyber_Fraud";
+                    } else if (typeRand < 0.70) {
+                        newCase.CaseType = "Unauthorized_Access";
+                    } else if (typeRand < 0.88) {
+                        newCase.CaseType = "Digital_Forgery";
+                    } else if (typeRand < 0.95) {
+                        newCase.CaseType = "Data_Breach";
+                    } else {
+                        newCase.CaseType = "Other_Cybercrime";
+                    }
+                    
+                    // Determine digital evidence count
+                    newCase.EvidenceCount = uniform_discr(1, 5);
+                    newCase.HasDigitalEvidence = newCase.EvidenceCount > 0;
+                    newCase.AuthenticationTime = triangular(2, 4, 8);
+                    newCase.SessionCount = uniform_discr(1, 3);
+                    
+                    // Enter waiting queue
+                    enterWaitingQueue_Exp.take(newCase);
+                </Expression>
+            </Action>
+            <OnExitAction>
+                <Expression>
+                    // Increment incoming cases counter
+                </Expression>
+            </OnExitAction>
+        </Source>
+
+        <!-- 2. Waiting Queue -->
+        <Queue>
+            <Name>WaitingQueue_Exp</Name>
+            <Description>Case waiting queue</Description>
+            <Capacity>1000</Capacity>
+        </Queue>
+
+        <!-- 3. Stage 1: Initial Review and Classification -->
+        <Service>
+            <Name>InitialReview_Exp</Name>
+            <Description>Initial review and case classification</Description>
+            <Seize>
+                <ResourcePool>
+                    <Name>ClerkPool_Exp</Name>
+                    <Description>Court clerks</Description>
+                    <Capacity>5</Capacity>
+                </ResourcePool>
+            </Seize>
+            <Delay>
+                <Expression>triangular(0.5, 1.0, 2.0)</Expression>
+            </Delay>
+            <OnExitAction>
+                <Expression>
+                    Case currentCase = (Case)getAgent();
+                    
+                    // Rule 3: Smart case assignment based on judge expertise
+                    if (currentCase.CaseType == "Cyber_Fraud" || 
+                        currentCase.CaseType == "Unauthorized_Access") {
+                        currentCase.AssignedJudge = "Judge_Specialized_Cyber";
+                    } else if (currentCase.CaseType == "Digital_Forgery") {
+                        currentCase.AssignedJudge = "Judge_Specialized_Forgery";
+                    } else if (currentCase.CaseType == "Data_Breach") {
+                        currentCase.AssignedJudge = "Judge_Specialized_Data";
+                    } else {
+                        currentCase.AssignedJudge = "Judge_General";
+                    }
+                    
+                    // Enter expert review stage
+                    enterExpertReview_Exp.take(currentCase);
+                </Expression>
+            </OnExitAction>
+        </Service>
+
+        <!-- 4. Stage 2: Expert Review and Evidence Verification -->
+        <Service>
+            <Name>ExpertReview_Exp</Name>
+            <Description>Expert review and digital evidence verification</Description>
+            <Seize>
+                <ResourcePool>
+                    <Name>ExpertPool_Exp</Name>
+                    <Description>Certified experts</Description>
+                    <Capacity>3</Capacity>
+                </ResourcePool>
+            </Seize>
+            <Delay>
+                <Expression>triangular(0.5, 2.0, 4.0)</Expression>
+            </Delay>
+            <OnExitAction>
+                <Expression>
+                    Case currentCase = (Case)getAgent();
+                    
+                    // Rule 2: Dynamic digital evidence verification
+                    if (currentCase.HasDigitalEvidence) {
+                        currentCase.EvidenceVerified = true;
+                        currentCase.AuthenticationTime = triangular(2, 4, 8);
+                        authTimeData.add("Experimental", currentCase.AuthenticationTime, currentCase.CaseID);
+                    } else {
+                        currentCase.EvidenceVerified = false;
+                    }
+                    
+                    // Enter judge review stage
+                    enterJudgeReview_Exp.take(currentCase);
+                </Expression>
+            </OnExitAction>
+        </Service>
+
+        <!-- 5. Stage 3: Judicial Review and Verdict -->
+        <Service>
+            <Name>JudgeReview_Exp</Name>
+            <Description>Judicial review and verdict issuance</Description>
+            <Seize>
+                <ResourcePool>
+                    <Name>JudgePool_Exp</Name>
+                    <Description>Judges</Description>
+                    <Capacity>8</Capacity>
+                </ResourcePool>
+            </Seize>
+            <Delay>
+                <Expression>triangular(5, 10, 20)</Expression>
+            </Delay>
+            <OnExitAction>
+                <Expression>
+                    Case currentCase = (Case)getAgent();
+                    
+                    // Calculate total processing time
+                    currentCase.ProcessingTime = time() - currentCase.ArrivalTime;
+                    
+                    // Rule 1: Litigation delay detection
+                    if (currentCase.ProcessingTime > 30) {
+                        currentCase.HasPerformanceIssue = true;
+                    } else {
+                        currentCase.HasPerformanceIssue = false;
+                    }
+                    
+                    // Save data
+                    cycleTimeData.add("Experimental", currentCase.ProcessingTime, currentCase.CaseID, currentCase.CaseType);
+                    totalCycleTime += currentCase.ProcessingTime;
+                    completedCases++;
+                    
+                    // Calculate backlog rate
+                    backlogRate = waitingQueue_Exp.size() / (waitingQueue_Exp.size() + completedCases) * 100;
+                    backlogData.add("Experimental", backlogRate, time());
+                    
+                    // Enter sink
+                    enterSink_Exp.take(currentCase);
+                </Expression>
+            </OnExitAction>
+        </Service>
+
+        <!-- 6. Process End -->
+        <Sink>
+            <Name>Sink_Exp</Name>
+            <Description>End of judicial process</Description>
+            <OnEnterAction>
+                <Expression>
+                    Case currentCase = (Case)getAgent();
+                    // Final case information recording
+                </Expression>
+            </OnEnterAction>
+        </Sink>
+    </Experiment>
+
+    <!-- ============================================================ -->
+    <!-- Control Scenario (Traditional System)                       -->
+    <!-- ============================================================ -->
+    
+    <Experiment>
+        <Name>ControlScenario</Name>
+        <Type>Simulation</Type>
+        <Description>Traditional scenario without ontology and smart assignment</Description>
+        
+        <!-- 1. Case Generator -->
+        <Source>
+            <Name>CaseGenerator_Ctrl</Name>
+            <Description>Generates cases for control group</Description>
+            <ArrivalRate>
+                <Expression>poisson(ArrivalRate)</Expression>
+            </ArrivalRate>
+            <Action>
+                <Expression>
+                    // Generate new case with complete specifications
+                    Case newCase = new Case();
+                    newCase.CaseID = "CTRL-" + time() + "-" + random();
+                    newCase.ArrivalTime = time();
+                    
+                    // Determine case type based on distribution
+                    double typeRand = uniform(0, 1);
+                    if (typeRand < 0.42) {
+                        newCase.CaseType = "Cyber_Fraud";
+                    } else if (typeRand < 0.70) {
+                        newCase.CaseType = "Unauthorized_Access";
+                    } else if (typeRand < 0.88) {
+                        newCase.CaseType = "Digital_Forgery";
+                    } else if (typeRand < 0.95) {
+                        newCase.CaseType = "Data_Breach";
+                    } else {
+                        newCase.CaseType = "Other_Cybercrime";
+                    }
+                    
+                    newCase.EvidenceCount = uniform_discr(0, 3);
+                    newCase.HasDigitalEvidence = newCase.EvidenceCount > 0;
+                    newCase.AuthenticationTime = triangular(48, 72, 96);
+                    newCase.SessionCount = uniform_discr(2, 5);
+                    
+                    enterWaitingQueue_Ctrl.take(newCase);
+                </Expression>
+            </Action>
+        </Source>
+
+        <!-- 2. Waiting Queue -->
+        <Queue>
+            <Name>WaitingQueue_Ctrl</Name>
+            <Description>Case waiting queue</Description>
+            <Capacity>1000</Capacity>
+        </Queue>
+
+        <!-- 3. Stage 1: Initial Review (Without Smart Assignment) -->
+        <Service>
+            <Name>InitialReview_Ctrl</Name>
+            <Description>Initial review (traditional)</Description>
+            <Seize>
+                <ResourcePool>
+                    <Name>ClerkPool_Ctrl</Name>
+                    <Capacity>3</Capacity>
+                </ResourcePool>
+            </Seize>
+            <Delay>
+                <Expression>triangular(1.0, 2.0, 4.0)</Expression>
+            </Delay>
+            <OnExitAction>
+                <Expression>
+                    Case currentCase = (Case)getAgent();
+                    // Random assignment without considering expertise
+                    currentCase.AssignedJudge = "Judge_Random_" + uniform_discr(1, 10);
+                    enterJudgeReview_Ctrl.take(currentCase);
+                </Expression>
+            </OnExitAction>
+        </Service>
+
+        <!-- 4. Stage 2: Judicial Review (Without Digital Verification) -->
+        <Service>
+            <Name>JudgeReview_Ctrl</Name>
+            <Description>Judicial review (traditional)</Description>
+            <Seize>
+                <ResourcePool>
+                    <Name>JudgePool_Ctrl</Name>
+                    <Capacity>5</Capacity>
+                </ResourcePool>
+            </Seize>
+            <Delay>
+                <Expression>triangular(20, 30, 50)</Expression>
+            </Delay>
+            <OnExitAction>
+                <Expression>
+                    Case currentCase = (Case)getAgent();
+                    
+                    currentCase.ProcessingTime = time() - currentCase.ArrivalTime;
+                    currentCase.AuthenticationTime = triangular(48, 72, 96);
+                    
+                    authTimeData.add("Control", currentCase.AuthenticationTime, currentCase.CaseID);
+                    cycleTimeData.add("Control", currentCase.ProcessingTime, currentCase.CaseID, currentCase.CaseType);
+                    totalCycleTime += currentCase.ProcessingTime;
+                    completedCases++;
+                    
+                    backlogRate = waitingQueue_Ctrl.size() / (waitingQueue_Ctrl.size() + completedCases) * 100;
+                    backlogData.add("Control", backlogRate, time());
+                    
+                    enterSink_Ctrl.take(currentCase);
+                </Expression>
+            </OnExitAction>
+        </Service>
+
+        <!-- 5. Process End -->
+        <Sink>
+            <Name>Sink_Ctrl</Name>
+            <Description>End of judicial process</Description>
+            <OnEnterAction>
+                <Expression>
+                    // Final recording
+                </Expression>
+            </OnEnterAction>
+        </Sink>
+    </Experiment>
+
+    <!-- ============================================================ -->
+    <!-- Results Analysis                                              -->
+    <!-- ============================================================ -->
+    
+    <Analysis>
+        <Name>ResultsAnalysis</Name>
+        <Description>Analysis of simulation results</Description>
+        
+        <Action>
+            <Expression>
+                // Calculate key statistics after simulation completion
+                double expAvgCycleTime = cycleTimeData.getAverage("CycleTime", "Scenario", "Experimental");
+                double ctrlAvgCycleTime = cycleTimeData.getAverage("CycleTime", "Scenario", "Control");
+                double expAvgAuthTime = authTimeData.getAverage("AuthTime", "Scenario", "Experimental");
+                double ctrlAvgAuthTime = authTimeData.getAverage("AuthTime", "Scenario", "Control");
+                double expAvgBacklog = backlogData.getAverage("BacklogRate", "Scenario", "Experimental");
+                double ctrlAvgBacklog = backlogData.getAverage("BacklogRate", "Scenario", "Control");
+                
+                // Display results
+                traceln("=== Simulation Results for 1250 Cases ===");
+                traceln("Cycle Time - Proposed Scenario: " + expAvgCycleTime + " days");
+                traceln("Cycle Time - Traditional Scenario: " + ctrlAvgCycleTime + " days");
+                traceln("Cycle Time Reduction: " + (1 - expAvgCycleTime/ctrlAvgCycleTime)*100 + "%");
+                traceln("");
+                traceln("Authentication Time - Proposed Scenario: " + expAvgAuthTime + " hours");
+                traceln("Authentication Time - Traditional Scenario: " + ctrlAvgAuthTime + " hours");
+                traceln("Authentication Time Reduction: " + (1 - expAvgAuthTime/ctrlAvgAuthTime)*100 + "%");
+                traceln("");
+                traceln("Backlog Rate - Proposed Scenario: " + expAvgBacklog + "%");
+                traceln("Backlog Rate - Traditional Scenario: " + ctrlAvgBacklog + "%");
+                traceln("Backlog Rate Reduction: " + (1 - expAvgBacklog/ctrlAvgBacklog)*100 + "%");
+                traceln("");
+                traceln("Total Completed Cases: " + completedCases);
+            </Expression>
+        </Action>
+    </Analysis>
+
+    <!-- ============================================================ -->
+    <!-- CSV Export                                                    -->
+    <!-- ============================================================ -->
+    
+    <TextFile>
+        <Name>ExportResults</Name>
+        <Description>Export results to CSV files</Description>
+        <FileName>Simulation_Results_1250_Cases.csv</FileName>
+        <Action>
+            <Expression>
+                // Save cycle time data
+                cycleTimeData.exportToFile("Cycle_Time_Data.csv");
+                // Save backlog data
+                backlogData.exportToFile("Backlog_Data.csv");
+                // Save authentication time data
+                authTimeData.exportToFile("Auth_Time_Data.csv");
+                
+                traceln("Simulation results saved to CSV files.");
+            </Expression>
+        </Action>
+    </TextFile>
+
+</Simulation>
