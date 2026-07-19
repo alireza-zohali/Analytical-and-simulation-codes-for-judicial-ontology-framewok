@@ -145,7 +145,7 @@ Citation
 
 If you use this repository, the ontology, or the simulation framework in your research, please cite the following:
 
-Zohali, A., Nasiri, R., & Vaziri, B. (2026). Conceptual Framework for Judicial Digital Transformation Based on Organizational Ontology (Version 1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.20834959
+Zohali, A., Nasiri, R., & Vaziri, B. (2026). Conceptual Framework for Judicial Digital Transformation Based on Organizational Ontology (Version 1.0) [Data set]. Zenodo. https://DOI: 10.5281/zenodo.20834959
 
 BibTeX:
 @misc{zohali2026judicial,
